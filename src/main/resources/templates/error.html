@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
+    <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
+    <style>
+        .error-message-container {
+            min-width: 500px;
+        }
+    </style>
+    <!--    css -->
+    <title>Document</title>
+</head>
+<body>
+<div class="container min-vh-100 d-flex justify-center items-center flex-column">
+    <div class="w-50 h-50 ">
+        <div class="w-fit h-fit py-4 pr-2 mr-2">
+            <h1 style="font-family: cursive;font-size: 20rem" th:text="${exception != null ? exception.code : status}"></h1>
+        </div>
+        <div class="w-1/2 h-fit error-message-container">
+            <h4 class="block" th:text="${exception != null ? exception.message : (message != null ? message : error)}"></h4>
+        </div>
+        <a href="/employee/list">
+            <button class="btn btn-primary">Go home</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

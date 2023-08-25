@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
+    <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{components/navbar.html :: navbar('show / ' + ${eId})}"></header>
+<div class="container-fluid row text-center">
+    <div class="col-12 d-flex justify-content-start mb-5 align-items-center">
+        <img th:src="${employee.stringImage}" alt="no image">
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="lastName" class="form-label text-black-50">Last name</label>
+        <p id="lastName" th:text="*{employee.lastName}" type="text" class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="firstName" class="form-label text-black-50">First name</label>
+        <p id="firstName" th:text="*{employee.firstName}" type="text"
+           class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="inputAddress" class="form-label text-black-50">Address</label>
+        <p th:text="*{employee.address}" class="form-control show-fields" id="inputAddress"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="personalEmail" class="form-label text-black-50">Personal email</label>
+        <p id="personalEmail" th:text="*{employee.personalEmail}" type="text"
+           class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="professionalEmail" class="form-label text-black-50">Professional email</label>
+        <p id="professionalEmail" th:text="*{employee.professionalEmail}" type="text"
+           class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="cin" class="form-label text-black-50">CIN</label>
+        <p id="cin" th:text="*{employee.cin}" type="text" class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="cnaps" class="form-label text-black-50">CNAPS</label>
+        <p id="cnaps" th:text="*{employee.cnaps}" type="text" class="form-control show-fields">
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="childrenNumber" class="form-label text-black-50">Children number</label>
+        <p id="childrenNumber" type="number" th:text="*{employee.childrenNumber}"
+           class="form-control show-fields"></p>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="birthDate" class="form-label text-black-50">Birthdate</label>
+        <p id="birthDate" th:text="*{employee.birthDate}" type="date" class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="entranceDate" class="form-label text-black-50">Entrance date</label>
+        <p id="entranceDate" th:text="*{employee.entranceDate}" type="date"
+           class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="departureDate" class="form-label text-black-50">Departure date</label>
+        <p id="departureDate" th:text="*{employee.departureDate}" type="date"
+           class="form-control show-fields"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="sex" class="form-label text-black-50">Sex</label>
+        <p id="sex" class="form-control show-fields" th:text="${employee.sex}"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="csp" class="form-label text-black-50">CSP</label>
+        <p id="csp" class="form-control show-fields" th:text="${employee.csp}"></p>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="phones" class="form-label text-black-50">Phone</label>
+        <div id="phones" th:each="phone : ${employee.phones}">
+            <p th:text="${phone.countryCode} + ' ' +${phone.value}" class="form-control show-fields"></p>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <label for="position" class="form-label text-black-50">Position</label>
+        <div id="position" th:each="position : ${employee.positions}">
+            <p th:text="${position.name}" class="form-control show-fields"></p>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{components/navbar.html :: footer}"></footer>
+</body>
+</html>

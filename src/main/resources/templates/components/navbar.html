@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="navbar(title)">
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="flex-grow-1 d-flex justify-content-start align-items-center">
+                <img th:src="${companyConf.logo}" class="company-logo" alt="logo">
+                <h1 class="mx-3 text-white" th:text="${companyConf.name}"></h1>
+            </div>
+            <a class="navbar-brand" href="/employee/list">
+                <button class="btn btn-primary">List</button>
+            </a>
+            <a href="/server/auth/logout">
+                <button class="btn btn-danger">Logout</button>
+            </a>
+        </div>
+    </nav>
+    <h5 class="w-100 text-start mt-2 mb-5 text-black-50 mx-2" th:text="'/ empolyee / ' + ${title}"></h5>
+</div>
+<div th:fragment="footer">
+    <div class="footer bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="mb-3">About Us</h5>
+                    <p><strong>Name:</strong> <span th:text="${companyConf.name}"></span></p>
+                    <p><strong>Description:</strong> <span th:text="${companyConf.description}"></span></p>
+                    <p><strong>Slogan:</strong> <span th:text="${companyConf.slogan}"></span></p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <p><strong>Address:</strong> <span th:text="${companyConf.address}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${companyConf.email}"></span></p>
+                    <p><strong>Phone:</strong></p>
+                    <ul class="list-unstyled" th:each="phone : ${companyConf.phones}">
+                        <li th:text="${phone.value}"></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Tax indentity</h5>
+                    <p><strong>NIF:</strong> <span th:text="${companyConf.taxIdentity.nif}"></span></p>
+                    <p><strong>RCS:</strong> <span th:text="${companyConf.taxIdentity.rcs}"></span></p>
+                    <p><strong>STAT:</strong> <span th:text="${companyConf.taxIdentity.stat}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

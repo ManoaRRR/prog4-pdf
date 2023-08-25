@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
+    <script th:inline="javascript" th:src="@{/scripts/add-phone-script.js}" defer></script>
+    <script th:inline="javascript" th:src="@{/scripts/add-position-script.js}" defer></script>
+    <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
+    <title>Create employee</title>
+</head>
+<body>
+<header th:replace="~{components/navbar.html :: navbar('edition / ' + ${eId})}"></header>
+<div class="container py-5">
+    <form class="row g-3" th:object="${employee}" action="/server/employee/createOrUpdate" method="POST"
+          enctype="multipart/form-data">
+        <div class="col-12 d-flex justify-content-start align-items-center">
+            <img th:src="${employee.stringImage}" alt="no image">
+        </div>
+        <input required id="id" name="id" th:field="*{id}" type="hidden"/>
+        <input required id="registrationNumber" name="registrationNumber" th:field="*{registrationNumber}"
+               type="hidden"/>
+        <div class="col-lg-4 col-md-6">
+            <label for="lastName" class="form-label">Last name</label>
+            <input required id="lastName" name="lastName" th:field="*{lastName}" type="text" class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="firstName" class="form-label">First name</label>
+            <input required id="firstName" name="firstName" th:field="*{firstName}" type="text" class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="inputAddress" class="form-label">Address</label>
+            <input required name="address" th:field="*{address}" class="form-control" id="inputAddress">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="image" class="form-label">Image</label>
+            <input name="address" type="file" th:field="*{image}" class="form-control" id="image">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="personalEmail" class="form-label">Personal email</label>
+            <input required id="personalEmail" name="personalEmail" th:field="*{personalEmail}" type="text"
+                   class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="professionalEmail" class="form-label">Professional email</label>
+            <input required id="professionalEmail" name="professionalEmail" th:field="*{professionalEmail}" type="text"
+                   class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="cin" class="form-label">CIN</label>
+            <input required id="cin" name="cin" th:field="*{cin}" type="text" class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="cnaps" class="form-label">CNAPS</label>
+            <input required id="cnaps" name="cnaps" th:field="*{cnaps}" type="text" class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="childrenNumber" class="form-label">Children number</label>
+            <input required id="childrenNumber" type="number" min="0" name="childrenNumber" th:field="*{childrenNumber}"
+                   class="form-control">
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <label for="birthDate" class="form-label">Birthdate</label>
+            <input id="birthDate" name="birthDate" th:field="*{birthDate}" type="date" class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="entranceDate" class="form-label">Entrance date</label>
+            <input id="entranceDate" name="entranceDate" th:field="*{entranceDate}" type="date"
+                   class="form-control">
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="departureDate" class="form-label">Departure date</label>
+            <input id="departureDate" name="departureDate" th:field="*{departureDate}" type="date"
+                   class="form-control">
+        </div>
+        <div class="col-md-6">
+            <label for="sex" class="form-label">Sex</label>
+            <select id="sex" name="sex" class="form-select" th:field="*{sex}">
+                <option selected value="">Chose your sex</option>
+                <option th:each="sex : ${T(com.example.prog4.repository.entity.enums.Sex).values()}" th:value="${sex}"
+                        th:text="${sex}"></option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="csp" class="form-label">CSP</label>
+            <select id="csp" name="csp" class="form-select" th:field="*{csp}">
+                <option selected value="">Chose your CSP</option>
+                <option th:each="csp : ${T(com.example.prog4.repository.entity.enums.Csp).values()}" th:value="${csp}"
+                        th:text="${csp}"></option>
+            </select>
+        </div>
+        <div class="col-12 my-3"></div>
+        <div class="col-12 col-md-6">
+            <div id="phonesList" class="list-group">
+                <div class="input-group mb-3" th:each="phone, phoneStatus : *{phones}">
+                    <input type="hidden" th:field="*{phones[__${phoneStatus.index}__].id}"/>
+                    <input class="form-control w-40" type="number"
+                           th:field="*{phones[__${phoneStatus.index}__].countryCode}"
+                           placeholder="Country code" required/>
+                    <input class="form-control" type="number"
+                           th:field="*{phones[__${phoneStatus.index}__].value}"
+                           required/>
+                    <button type="button" class="btn-info btn-danger"
+                            th:onclick="'removePhone(' + ${phoneStatus.index} + ')'">Remove
+                    </button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-info" th:onclick="addPhone()">Add Phone</button>
+        </div>
+        <div class="col-12 col-md-6">
+            <div id="positionsList" class="list-group">
+                <div class="input-group mb-3" th:each="position, positionStatus : *{positions}">
+                    <input type="hidden" th:field="*{positions[__${positionStatus.index}__].id}"/>
+                    <input class="form-control" type="text" th:field="*{positions[__${positionStatus.index}__].name}"
+                           required/>
+                    <button type="button" class="btn-info btn-danger"
+                            th:onclick="'removePosition(' + ${positionStatus.index} + ')'">Remove
+                    </button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-info" th:onclick="addPosition()">Add Position</button>
+        </div>
+        <div class="col-12 my-3"></div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/employee/list">
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </a>
+        </div>
+    </form>
+</div>
+<footer th:replace="~{components/navbar.html :: footer}"></footer>
+</body>
+</html>

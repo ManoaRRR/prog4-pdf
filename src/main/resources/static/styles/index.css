@@ -1,0 +1,38 @@
+html, body {
+    overflow-x: hidden;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+img.img-list {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.company-logo {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.footer  {
+    margin-top: 10rem;
+}
+
+.show-fields {
+    border: none !important;
+    outline: none !important;
+    background: rgba(0, 0, 0, 0.1);
+}

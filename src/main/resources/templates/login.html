@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/styles/index.css}">
+    <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
+    <title>login</title>
+</head>
+<body>
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <form action="/server/auth/login" th:object="${credentials}">
+                    <h1 class="mb-5">Login</h1>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" id="username" th:field="*{username}" class="form-control form-control-lg"/>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" th:field="*{password}"
+                               class="form-control form-control-lg"/>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
