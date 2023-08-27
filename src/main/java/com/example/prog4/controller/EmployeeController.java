@@ -120,20 +120,18 @@ public class EmployeeController {
     private void generatePdfFromHtml(String html, HttpServletResponse response) throws IOException, DocumentException {
         String outputFileName = "employees.pdf";
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "fil pdf" + outputFileName);
+        response.setHeader("Content-Disposition", "inline; filename=" + outputFileName);
 
-        OutputStream outputStream = response.getOutputStream();
+        try (OutputStream outputStream = response.getOutputStream()) {
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocumentFromString(html);
 
-        ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocumentFromString(html);
+            String baseUrl = "http://localhost:8080";
+            renderer.getSharedContext().setBaseURL(baseUrl);
 
-        String baseUrl = "http://localhost:8080";
-        renderer.getSharedContext().setBaseURL(baseUrl);
-
-        renderer.layout();
-        renderer.createPDF(outputStream);
-
-        outputStream.close();
+            renderer.layout();
+            renderer.createPDF(outputStream);
+        }
     }
 }
 
