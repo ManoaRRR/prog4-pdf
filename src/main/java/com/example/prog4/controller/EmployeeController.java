@@ -79,22 +79,39 @@ public class EmployeeController {
         StringBuilder htmlBuilder = new StringBuilder();
 
         // Begin the HTML structure
-        htmlBuilder.append("<!DOCTYPE html>\n<html><head><style>")
+        htmlBuilder.append("<!DOCTYPE html>\n<html><head>")
+                .append("<style>")
                 .append("body { font-family: Arial, sans-serif; }")
                 .append("table { width: 100%; border-collapse: collapse; margin-top: 20px; }")
                 .append("th, td { border: 1px solid #000; padding: 8px; text-align: left; }")
-                .append("</style></head><body>");
-        htmlBuilder.append("<table>");
-        htmlBuilder.append("<tr><th>Image</th><th>Last name</th><th>First name</th><th>CNAPS</th><th>Address</th><th>Phone</th><th>CIN</th><th>Departure date</th><th>Entrance date</th><th>Personal Email</th><th>Professional Email</th></tr>");
+                .append("</style>")
+                .append("</head><body>");
+
+        // Create the table header row
+        htmlBuilder.append("<table>")
+                .append("<tr>")
+                .append("<th>Image</th>")
+                .append("<th>Last name</th>")
+                .append("<th>First name</th>")
+                .append("<th>CNAPS</th>")
+                .append("<th>Address</th>")
+                .append("<th>Phone</th>")
+                .append("<th>CIN</th>")
+                .append("<th>Departure date</th>")
+                .append("<th>Entrance date</th>")
+                .append("<th>Personal Email</th>")
+                .append("<th>Professional Email</th>")
+                .append("</tr>");
+
         // Generate employee list HTML
         for (Employee employee : employees) {
             htmlBuilder.append("<tr>");
             if (employee.getImage() != null && !employee.getImage().isEmpty()) {
                 // Convert image data to base64 and include it in the HTML
                 String imageData = Base64.getEncoder().encodeToString(employee.getImage().getBytes());
-                htmlBuilder.append("<img src='data:image/jpeg;base64,").append(imageData).append("' width='100' height='100'/>");
+                htmlBuilder.append("<td><img src='data:image/jpeg;base64,").append(imageData).append("' width='100' height='100'/></td>");
             } else {
-                htmlBuilder.append("No Image");
+                htmlBuilder.append("<td>No Image</td>");
             }
             htmlBuilder
                     .append("<td>").append(employee.getLastName()).append("</td>")
@@ -110,12 +127,13 @@ public class EmployeeController {
                     .append("</tr>");
         }
 
-        htmlBuilder.append("</table>");
         // Close the HTML structure
-        htmlBuilder.append("</body></html>");
+        htmlBuilder.append("</table>")
+                .append("</body></html>");
 
         return htmlBuilder.toString();
     }
+
 
     private void generatePdfFromHtml(String html, HttpServletResponse response) throws IOException, DocumentException {
         String outputFileName = "employees.pdf";
