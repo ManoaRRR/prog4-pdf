@@ -23,7 +23,7 @@ public class EmployeeMapper {
     private PositionRepository positionRepository;
     private PhoneMapper phoneMapper;
 
-    public com.example.prog4.repository.employee.entity.Employee toDomain(Employee employee, EmployeeCnaps employeeCnaps) {
+    public com.example.prog4.repository.employee.entity.Employee toDomain(Employee employee) {
         try {
             List<Position> positions = new ArrayList<>();
             employee.getPositions().forEach(position -> {
@@ -44,7 +44,7 @@ public class EmployeeMapper {
                     .lastName(employee.getLastName())
                     .address(employee.getAddress())
                     .cin(employee.getCin())
-                    .cnaps(employeeCnaps.getCnaps())
+                    .cnaps(employee.getCnaps())
                     .registrationNumber(employee.getRegistrationNumber())
                     .childrenNumber(employee.getChildrenNumber())
                     // enums

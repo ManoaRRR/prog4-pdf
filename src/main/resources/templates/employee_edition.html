@@ -52,10 +52,6 @@
             <input required id="cin" name="cin" th:field="*{cin}" type="text" class="form-control">
         </div>
         <div class="col-lg-4 col-md-6">
-            <label for="cnaps" class="form-label">CNAPS</label>
-            <input required id="cnaps" name="cnaps" th:field="*{cnaps}" type="text" class="form-control">
-        </div>
-        <div class="col-lg-4 col-md-6">
             <label for="childrenNumber" class="form-label">Children number</label>
             <input required id="childrenNumber" type="number" min="0" name="childrenNumber" th:field="*{childrenNumber}"
                    class="form-control">
@@ -79,7 +75,7 @@
             <label for="sex" class="form-label">Sex</label>
             <select id="sex" name="sex" class="form-select" th:field="*{sex}">
                 <option selected value="">Chose your sex</option>
-                <option th:each="sex : ${T(com.example.prog4.repository.entity.enums.Sex).values()}" th:value="${sex}"
+                <option th:each="sex : ${T(com.example.prog4.repository.employee.entity.enums.Sex).values()}" th:value="${sex}"
                         th:text="${sex}"></option>
             </select>
         </div>
@@ -87,7 +83,7 @@
             <label for="csp" class="form-label">CSP</label>
             <select id="csp" name="csp" class="form-select" th:field="*{csp}">
                 <option selected value="">Chose your CSP</option>
-                <option th:each="csp : ${T(com.example.prog4.repository.entity.enums.Csp).values()}" th:value="${csp}"
+                <option th:each="csp : ${T(com.example.prog4.repository.employee.entity.enums.Csp).values()}" th:value="${csp}"
                         th:text="${csp}"></option>
             </select>
         </div>
