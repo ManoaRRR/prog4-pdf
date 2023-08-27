@@ -75,6 +75,30 @@ public class EmployeeController {
 
     // ... other methods ...
 
+
+
+
+    private void generatePdfFromHtml(String html, HttpServletResponse response) throws IOException, DocumentException {
+        String outputFileName = "employees.pdf";
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline; filename=" + outputFileName);
+
+        try (OutputStream outputStream = response.getOutputStream()) {
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocumentFromString(html);
+
+            String baseUrl = "http://localhost:8080";
+            renderer.getSharedContext().setBaseURL(baseUrl);
+
+            renderer.layout();
+            renderer.createPDF(outputStream);
+        }
+    }
+
+
+
+
+
     private String generateHtmlFromEmployees(List<Employee> employees) throws IOException {
         StringBuilder htmlBuilder = new StringBuilder();
 
@@ -132,24 +156,6 @@ public class EmployeeController {
                 .append("</body></html>");
 
         return htmlBuilder.toString();
-    }
-
-
-    private void generatePdfFromHtml(String html, HttpServletResponse response) throws IOException, DocumentException {
-        String outputFileName = "employees.pdf";
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "inline; filename=" + outputFileName);
-
-        try (OutputStream outputStream = response.getOutputStream()) {
-            ITextRenderer renderer = new ITextRenderer();
-            renderer.setDocumentFromString(html);
-
-            String baseUrl = "http://localhost:8080";
-            renderer.getSharedContext().setBaseURL(baseUrl);
-
-            renderer.layout();
-            renderer.createPDF(outputStream);
-        }
     }
 }
 
